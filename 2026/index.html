@@ -2,9 +2,11 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style type="text/css">
+  <title>CS 1840 Intro to RL</title>
+  <meta name="description" content="Syllabus for CS 1840: Introduction to Reinforcement Learning, Harvard University.">
+  <style>
     /* Color scheme stolen from Sergey Karayev */
 
     a {
@@ -12,19 +14,29 @@
       text-decoration: none;
     }
 
+    /* Hover/focus color alone is not a sufficient indicator, so underline too. */
     a:focus,
     a:hover {
       color: #f09228;
-      text-decoration: none;
+      text-decoration: underline;
+    }
+
+    /* Visible keyboard focus everywhere, not just on links. */
+    :focus-visible {
+      outline: 2px solid #1772d0;
+      outline-offset: 2px;
     }
 
     /* Font family and size are set once on body and inherit from there, so
-       td/th/p/a/strong do not need to restate them. Sizes below are in em,
+       headings/tables/lists do not need to restate them. Sizes below are in em,
        relative to this base. */
     body {
       font-family: 'Lato', Verdana, Helvetica, sans-serif;
       font-size: 1em;
       line-height: 1.5;
+      background: #ffffff;
+      color: #000000;
+      margin: 0;
     }
 
     /* Tables do not inherit body font settings in all browsers. */
@@ -34,24 +46,29 @@
       line-height: inherit;
     }
 
-    heading {
-      font-size: 1.55em;
+    /* h1/h2/h3 replace the old custom <name>/<heading>/<subheading> elements,
+       so they are styled to match rather than to browser defaults. */
+    h1,
+    h2,
+    h3 {
+      font-weight: 400;
       line-height: 1.3;
+      margin: 0 0 0.7em;
     }
 
-    subheading {
+    h1 {
+      font-size: 2.3em;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.55em;
+      text-align: center;
+    }
+
+    h3 {
       font-size: 1.2em;
       font-weight: 700;
-      line-height: 1.3;
-    }
-
-    papertitle {
-      font-weight: 700;
-    }
-
-    name {
-      font-size: 2.3em;
-      line-height: 1.3;
     }
 
     span.highlight {
@@ -62,17 +79,19 @@
     /* The original pages set <meta viewport content="width=800">, which makes
        phones render the page zoomed out. Kept the 800px column, but let it
        reflow below that width instead. */
-    body {
-      background: #ffffff;
-      color: #000000;
-      margin: 0;
-    }
-
-    table.outer {
+    main {
       width: 800px;
       max-width: 100%;
+      margin: 0 auto;
     }
 
+    /* Matches the cellpadding="20" of the layout tables this replaced. */
+    main > section {
+      padding: 20px;
+    }
+
+    /* Horizontally scrollable wrapper for the grading table. It is focusable so
+       that keyboard users can scroll it without a pointer. */
     .scroller {
       overflow-x: auto;
     }
@@ -82,11 +101,30 @@
       margin: 1.4em auto;
     }
 
+    table.sched caption {
+      caption-side: top;
+      padding-bottom: 0.6em;
+      font-style: italic;
+      text-align: center;
+    }
+
     table.sched td,
     table.sched th {
-      padding: 0.25em 0.8em;
+      padding: 0.6em 0.8em;
       vertical-align: middle;
       text-align: center;
+    }
+
+    /* Row headers are <th> for screen readers, but keep the original weight so
+       that <strong> still marks out the exams. */
+    table.sched tbody th {
+      font-weight: 400;
+    }
+
+    /* Zebra striping, previously hard-coded per row with bgcolor. */
+    table.sched thead tr,
+    table.sched tbody tr:nth-child(even) {
+      background-color: #f8f8ff;
     }
 
     ul.toc,
@@ -132,542 +170,440 @@
         display: none
       }
 
-      table.outer {
+      main {
         width: auto
       }
     }
   </style>
-  <title>CS 1840 Intro to RL</title>
 </head>
 
-
 <body>
-  <table class="outer" border="0" align="center" cellspacing="0" cellpadding="0">
-    <tbody>
-      <tr>
-        <td>
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle">
-                  <p align="center">
-                    <name>CS 1840: Introduction to Reinforcement Learning</name>
-                  </p>
-                  <hr>
+  <main>
+    <section>
+      <h1>CS 1840: Introduction to Reinforcement Learning</h1>
+      <hr>
 
-                  <p align="center">
-                    <heading>Syllabus</heading>
-                  </p>
-                  <ul class="toc">
-                    <li><a href="#introduction"><strong>Introduction</strong></a></li>
-                    <li><a href="#staff-and-organization"><strong>Staff and organization</strong></a></li>
-                    <li><a href="#prerequisites"><strong>Prerequisites</strong></a></li>
-                    <li><a href="#assessments-and-grading"><strong>Assessments and grading</strong></a>
-                      <ul>
-                        <li><a href="#participation">Participation</a></li>
-                        <li><a href="#homework">Homework</a></li>
-                        <li><a href="#exams">Exams</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#diversity-and-inclusion"><strong>Diversity and Inclusion</strong></a></li>
-                    <li><a href="#honor-code-and-ai-policy"><strong>Honor code and AI policy</strong></a></li>
-                    <li><a href="#course-materials"><strong>Course materials</strong></a></li>
-                    <li><a href="#schedule"><strong>Schedule</strong></a></li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <h2 id="syllabus-heading">Syllabus</h2>
+      <nav aria-labelledby="syllabus-heading">
+        <ul class="toc">
+          <li><a href="#introduction"><strong>Introduction</strong></a></li>
+          <li><a href="#staff-and-organization"><strong>Staff and organization</strong></a></li>
+          <li><a href="#prerequisites"><strong>Prerequisites</strong></a></li>
+          <li><a href="#assessments-and-grading"><strong>Assessments and grading</strong></a>
+            <ul>
+              <li><a href="#participation">Participation</a></li>
+              <li><a href="#homework">Homework</a></li>
+              <li><a href="#exams">Exams</a></li>
+            </ul>
+          </li>
+          <li><a href="#diversity-and-inclusion"><strong>Diversity and Inclusion</strong></a></li>
+          <li><a href="#honor-code-and-ai-policy"><strong>Honor code and AI policy</strong></a></li>
+          <li><a href="#course-materials"><strong>Course materials</strong></a></li>
+          <li><a href="#schedule"><strong>Schedule</strong></a></li>
+        </ul>
+      </nav>
+    </section>
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>
+        Modern AI systems often need the ability to make sequential decisions in an unknown, uncertain,
+        possibly hostile environment,
+        by actively interacting with the environment to collect relevant data.
+        Reinforcement Learning (RL) is a general framework that can capture the interactive learning setting
+        and has been used to design intelligent agents that achieve high-level performance in challenging
+        applications
+        such as Go, computer games, robotic manipulation, health care, education, and the training of large
+        language models.
+      </p>
+      <p>
+        This course provides an introduction to reinforcement learning covering a range of problem
+        formulations, algorithms, and theory.
+        The five main themes of the course are:
+      </p>
+      <ol>
+        <li><strong>tabular planning</strong> (the Markov decision process formalism, Bellman equations,
+          policy evaluation, value iteration, policy iteration),</li>
+        <li><strong>exploration</strong> (multi-armed bandits, regret, explore-then-commit, epsilon-greedy,
+          upper confidence bounds, contextual bandits),</li>
+        <li><strong>value-based learning</strong> (temporal-difference learning, Q-learning, tabular
+          model-based RL and the simulation lemma, function approximation, deep Q networks),</li>
+        <li><strong>imitation learning</strong> (behavior cloning, DAgger), and</li>
+        <li><strong>policy optimization</strong> (REINFORCE, variance reduction, natural policy gradient,
+          PPO, learning from human feedback and from verifiable rewards).</li>
+      </ol>
+      <p>
+        There will also be an <strong>Embedded Ethics</strong> lecture on ethical issues arising in
+        reinforcement learning.
+      </p>
+      <p>
+        The assignments will focus on a mix of algorithmic and statistical principles, along with their
+        programming implementations.
+        After taking this course, students will be able to state, implement, and analyze the fundamental RL
+        algorithms.
+      </p>
+    </section>
+    <section id="staff-and-organization">
+      <h2>Staff and organization</h2>
+      <p><strong>Head instructor</strong>: Kiant&eacute; Brantley</p>
+      <p><strong>TFs</strong>: Alex Dazhen Cai (Head TF), Egil Rolstad, Philip Nielsen</p>
+      <p><strong>CAs</strong>: Emmanuel Rassou, Justin Li, Ishaan Sinha</p>
+      <p><strong>Lecture time</strong>: Monday/Wednesday 11:15am&ndash;12:30pm</p>
+      <p><strong>Lecture location</strong>: 114 Western Ave 2111–2112</p>
+      <p>
+        <strong>Sections and office hours</strong>: These are optional and start in the second week of
+        classes.
+        See the table below for the weekly schedule.
+        The section cycle starts on Mondays and covers the material from the last week's two lectures.
+      </p>
+      <iframe class="embed"
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vROR0-rRPZqnfuGZc6VykJ0jCVRxnOuJFpZGIf0wnAQ7Onb0a7Zn1W6gkWBIonBlXX0fu0n3jJ1KtSd/pubhtml?gid=748793488&amp;single=true&amp;widget=true&amp;headers=false"
+        height="520" title="CS 1840 sections and office hours"
+        loading="lazy"></iframe>
+      <p>
+        <strong>Calendar</strong>: Please double check the course Google Calendar below for the most
+        up-to-date information on location changes and cancellations.
+      </p>
+      <iframe class="embed"
+        src="https://calendar.google.com/calendar/embed?src=c_a33c9dd9f0b8391424f4450a3f2c894dab71d7733c2ed758d32f67ed377b9ad9%40group.calendar.google.com&amp;ctz=America%2FNew_York"
+        height="600" title="CS 1840 course calendar" loading="lazy"></iframe>
+      <p>
+        <strong>Discussion</strong>: We will use an <a
+          href="https://edstem.org/us/courses/100257/discussion">Ed discussion forum</a> for course
+        communication including announcements and homework clarifications.
+        Ed allows private posts that are only visible to you and the teaching staff (not your classmates).
+        Do not email course staff except in the case of sensitive requests such as Disability Access Office
+        accommodations or personal emergencies.
+        These should be sent directly to the head instructor and head TF.
+      </p>
+    </section>
+    <section id="prerequisites">
+      <h2>Prerequisites</h2>
+      <p>We assume background in:</p>
+      <ul>
+        <li>calculus &amp; linear algebra (e.g. AM22a, Math 21b);</li>
+        <li>probability theory (e.g. Stat 110);</li>
+        <li>programming in Python (e.g. CS 50, CS 32).</li>
+      </ul>
+      <p>
+        Homework zero (HW0) checks your familiarity with these topics.
+        If you find it challenging, please come to office hours to meet with the course staff.
+      </p>
+      <p>The following topics are recommended but not required:</p>
+      <ul>
+        <li>linear regression (e.g. Stat 139);</li>
+        <li>supervised learning (e.g. CS 1810, Stat 195);</li>
+        <li>algorithms (e.g. CS 1200).</li>
+      </ul>
+    </section>
+    <section id="assessments-and-grading">
+      <h2>Assessments and grading</h2>
+      <p>
+        The course is letter-graded by default, but you may switch to SAT/UNSAT if you prefer.
+        Your final grade will be calculated as a weighted average of course assessments:
+      </p>
 
+      <div class="scroller" tabindex="0" role="region" aria-labelledby="grading-caption">
+        <table class="sched">
+          <caption id="grading-caption">Assignments, dates and weight toward the final grade</caption>
+          <thead>
+            <tr>
+              <th scope="col">Assignment</th>
+              <th scope="col">Released</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Participation</th>
+              <td>Start of course</td>
+              <td>End of course</td>
+              <td>5%</td>
+            </tr>
+            <tr>
+              <th scope="row">HW0</th>
+              <td>08/31</td>
+              <td>09/17</td>
+              <td>5%</td>
+            </tr>
+            <tr>
+              <th scope="row">HW1&ndash;5</th>
+              <td>Fridays</td>
+              <td>Thursdays</td>
+              <td>40%</td>
+            </tr>
+            <tr>
+              <th scope="row">HW1</th>
+              <td>09/11</td>
+              <td>09/24</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">HW2</th>
+              <td>09/25</td>
+              <td>10/08</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row"><strong>Midterm</strong></th>
+              <td></td>
+              <td>10/26</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <th scope="row">HW3</th>
+              <td>10/09</td>
+              <td>10/29</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">HW4</th>
+              <td>10/30</td>
+              <td>11/12</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">HW5</th>
+              <td>11/13</td>
+              <td>12/03</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row"><strong>Final exam</strong></th>
+              <td></td>
+              <td>12/10&ndash;12/19 (TBD)</td>
+              <td>30%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="introduction">
-                  <p align="center">
-                    <heading>Introduction</heading>
-                  </p>
-                  <p>
-                    Modern AI systems often need the ability to make sequential decisions in an unknown, uncertain,
-                    possibly hostile environment,
-                    by actively interacting with the environment to collect relevant data.
-                    Reinforcement Learning (RL) is a general framework that can capture the interactive learning setting
-                    and has been used to design intelligent agents that achieve high-level performance in challenging
-                    applications
-                    such as Go, computer games, robotic manipulation, health care, education, and the training of large
-                    language models.
-                  </p>
-                  <p>
-                    This course provides an introduction to reinforcement learning covering a range of problem
-                    formulations, algorithms, and theory.
-                    The five main themes of the course are:
-                  </p>
-                  <ol>
-                    <li><strong>tabular planning</strong> (the Markov decision process formalism, Bellman equations,
-                      policy evaluation, value iteration, policy iteration),</li>
-                    <li><strong>exploration</strong> (multi-armed bandits, regret, explore-then-commit, epsilon-greedy,
-                      upper confidence bounds, contextual bandits),</li>
-                    <li><strong>value-based learning</strong> (temporal-difference learning, Q-learning, tabular
-                      model-based RL and the simulation lemma, function approximation, deep Q networks),</li>
-                    <li><strong>imitation learning</strong> (behavior cloning, DAgger), and</li>
-                    <li><strong>policy optimization</strong> (REINFORCE, variance reduction, natural policy gradient,
-                      PPO, learning from human feedback and from verifiable rewards).</li>
-                  </ol>
-                  <p>
-                    There will also be an <strong>Embedded Ethics</strong> lecture on ethical issues arising in
-                    reinforcement learning.
-                  </p>
-                  <p>
-                    The assignments will focus on a mix of algorithmic and statistical principles, along with their
-                    programming implementations.
-                    After taking this course, students will be able to state, implement, and analyze the fundamental RL
-                    algorithms.
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <h3 id="participation">Participation</h3>
+      <p>
+        <strong>Participation</strong>: You can demonstrate participation in the course in many different
+        ways:
+      </p>
+      <ul>
+        <li>regular attendance of lectures</li>
+        <li>attending sections and office hours</li>
+        <li>asking questions on the Ed forum</li>
+      </ul>
+      <p>
+        At the end of the term, you will submit a paragraph on how you participated in the course.
+        Regularly attending lectures will suffice for a full participation grade.
+        If you have another responsibility that prevents you from attending all the lectures, please make a
+        private post on Ed at the beginning of the semester,
+        and we will expect increased engagement through sections and Ed.
+      </p>
 
+      <h3 id="homework">Homework</h3>
+      <p>
+        <strong>Homework materials</strong>: Homework assignments can be downloaded from Canvas.
+        There are five homeworks, released every two weeks;
+        You will have an additional week for HW3 to help prepare for the midterm and an additional week for HW5 since it is a more open-ended assignment.
+        Each homework contains a math portion and a programming portion.
+      </p>
+      <ol>
+        <li>
+          For the math portion, you must submit a single PDF.
+          You may choose to neatly handwrite your work or typeset it using a markup language such as LaTeX
+          or Typst.
+          See <a href="https://www.overleaf.com/learn">overleaf.com/learn</a> or <a
+            href="https://typst.app/docs/tutorial/">typst.app/docs/tutorial</a> for the respective tutorials.
+        </li>
+        <li>
+          For the programming portion, you will submit a zip archive of your codebase in the same file
+          structure as the downloaded assignment.
+          This includes your <code>README.md</code> file with any written responses.
+          See <a href="https://www.markdownguide.org/getting-started/">markdownguide.org/getting-started</a>
+          for a guide to Markdown formatting.
+          You do not need to submit a PDF for this portion.
+          If you typeset the math portion,
+          you must include the source code in your zip archive for verification purposes.
+        </li>
+      </ol>
+      <p>
+        <strong>Compute requirements</strong>: The programming assignments are designed to be runnable on a
+        personal laptop.
+        We will also provide access to cloud CPUs through HUIT.
+        Further information and setup instructions will be posted on Ed.
+      </p>
+      <p>
+        <strong>Homework submission</strong>: Homeworks will be submitted through <a
+          href="https://www.gradescope.com/courses/1333400">Gradescope</a>.
+        Pages must be correctly assigned to questions in order to be graded.
+      </p>
+      <p>
+        <strong>Late homeworks</strong>: Each student will have <strong>96 cumulative hours of late
+          time</strong> (as measured on Gradescope).
+        Up to <strong>48 hours</strong> may be used on any one assignment.
+        Any assignment that is turned in beyond this limit will receive zero credit.
+      </p>
+      <p>
+        <strong>Regrade requests</strong>: All regrade requests must be submitted on Gradescope within seven
+        days after the grades for the homework in question are released.
+        This ensures that we can address concerns in a timely and fair manner.
+        Grades will only be changed in the case of a clear mis-application of the rubric.
+      </p>
+      <p>
+        <strong>Homework grading</strong>: HW0 is graded on completion (effort shown, not correctness).
+        For the remaining homeworks 1&ndash;5, each question is worth some indicated number of points,
+        and your final homework score will be a weighted average across all homework questions with respect
+        to these points.
+        In order to pass the course, you must attempt and submit all homeworks, even for zero credit.
+      </p>
+      <p>
+        <strong>Collaboration</strong>: Collaboration is encouraged under the restriction that you fully own
+        your submissions and cite any help you received.
+        This means that when you submit a homework, you affirm that:
+      </p>
+      <ul>
+        <li>The entirety of your submission was written by you.
+          Including output from a peer or an AI tool into your submission is strictly prohibited.</li>
+        <li>Your submission honestly represents your own understanding of the material.
+          If a teaching staff member asks you about any part of your submission and finds that it is not
+          your own work,
+          it will be treated as academic misconduct.</li>
+        <li>You have not shared, and will not share, any part of your submission as-is with a classmate or
+          outside of the class.
+          For example, you may not look at a peer's submission or post your solution publicly on Ed.
+          (Discussing your thought process or asking questions is welcome and encouraged.)
+        </li>
+      </ul>
+      <p>
+        In each of your answers, you must list all your collaborators (human or AI), as well as any
+        materials that you consulted (except those on the course website).
+        To support your recall, we recommend you wait a day between receiving help and writing up your own
+        answer.
+      </p>
 
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="staff-and-organization">
-                  <p align="center">
-                    <heading>Staff and organization</heading>
-                  </p>
-                  <p><strong>Head instructor</strong>: Kiant&eacute; Brantley</p>
-                  <p><strong>TFs</strong>: Alex Dazhen Cai (Head TF), Egil Rolstad, Philip Nielsen</p>
-                  <p><strong>CAs</strong>: Emmanuel Rassou, Justin Li, Ishaan Sinha</p>
-                  <p><strong>Lecture time</strong>: Monday/Wednesday 11:15am&ndash;12:30pm</p>
-                  <p><strong>Lecture location</strong>: 114 Western Ave 2111–2112</p>
-                  <p>
-                    <strong>Sections and office hours</strong>: These are optional and start in the second week of
-                    classes.
-                    See the table below for the weekly schedule.
-                    The section cycle starts on Mondays and covers the material from the last week's two lectures.
-                  </p>
-                  <iframe class="embed"
-                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vROR0-rRPZqnfuGZc6VykJ0jCVRxnOuJFpZGIf0wnAQ7Onb0a7Zn1W6gkWBIonBlXX0fu0n3jJ1KtSd/pubhtml?gid=748793488&amp;single=true&amp;widget=true&amp;headers=false"
-                    height="520" frameborder="0" scrolling="no" title="CS 1840 sections and office hours"
-                    loading="lazy"></iframe>
-                  <p>
-                    <strong>Calendar</strong>: Please double check the course Google Calendar below for the most
-                    up-to-date information on location changes and cancellations.
-                  </p>
-                  <iframe class="embed"
-                    src="https://calendar.google.com/calendar/embed?src=c_a33c9dd9f0b8391424f4450a3f2c894dab71d7733c2ed758d32f67ed377b9ad9%40group.calendar.google.com&amp;ctz=America%2FNew_York"
-                    height="600" frameborder="0" scrolling="no" title="CS 1840 course calendar" loading="lazy"></iframe>
-                  <p>
-                    <strong>Discussion</strong>: We will use an <a
-                      href="https://edstem.org/us/courses/100257/discussion">Ed discussion forum</a> for course
-                    communication including announcements and homework clarifications.
-                    Ed allows private posts that are only visible to you and the teaching staff (not your classmates).
-                    Do not email course staff except in the case of sensitive requests such as Disability Access Office
-                    accommodations or personal emergencies.
-                    These should be sent directly to the head instructor and head TF.
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="prerequisites">
-                  <p align="center">
-                    <heading>Prerequisites</heading>
-                  </p>
-                  <p>We assume background in:</p>
-                  <ul>
-                    <li>calculus &amp; linear algebra (e.g. AM22a, Math 21b);</li>
-                    <li>probability theory (e.g. Stat 110);</li>
-                    <li>programming in Python (e.g. CS 50, CS 32).</li>
-                  </ul>
-                  <p>
-                    Homework zero (HW0) checks your familiarity with these topics.
-                    If you find it challenging, please come to office hours to meet with the course staff.
-                  </p>
-                  <p>The following topics are recommended but not required:</p>
-                  <ul>
-                    <li>linear regression (e.g. Stat 139);</li>
-                    <li>supervised learning (e.g. CS 1810, Stat 195);</li>
-                    <li>algorithms (e.g. CS 1200).</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="assessments-and-grading">
-                  <p align="center">
-                    <heading>Assessments and grading</heading>
-                  </p>
-                  <p>
-                    The course is letter-graded by default, but you may switch to SAT/UNSAT if you prefer.
-                    Your final grade will be calculated as a weighted average of course assessments:
-                  </p>
-
-                  <div class="scroller">
-                    <table class="sched">
-                      <tbody>
-                        <tr height="50" bgcolor="#F8F8FF">
-                          <th>Assignment</th>
-                          <th>Released</th>
-                          <th>Deadline</th>
-                          <th>Grade</th>
-                        </tr>
-                        <tr height="50">
-                          <td>Participation</td>
-                          <td>Start of course</td>
-                          <td>End of course</td>
-                          <td>5%</td>
-                        </tr>
-                        <tr height="50" bgcolor="#F8F8FF">
-                          <td>HW0</td>
-                          <td>08/31</td>
-                          <td>09/17</td>
-                          <td>5%</td>
-                        </tr>
-                        <tr height="50">
-                          <td>HW1&ndash;5</td>
-                          <td>Fridays</td>
-                          <td>Thursdays</td>
-                          <td>40%</td>
-                        </tr>
-                        <tr height="50" bgcolor="#F8F8FF">
-                          <td>HW1</td>
-                          <td>09/11</td>
-                          <td>09/24</td>
-                          <td></td>
-                        </tr>
-                        <tr height="50">
-                          <td>HW2</td>
-                          <td>09/25</td>
-                          <td>10/08</td>
-                          <td></td>
-                        </tr>
-                        <tr height="50" bgcolor="#F8F8FF">
-                          <td><strong>Midterm</strong></td>
-                          <td></td>
-                          <td>10/26</td>
-                          <td>20%</td>
-                        </tr>
-                        <tr height="50">
-                          <td>HW3</td>
-                          <td>10/09</td>
-                          <td>10/29</td>
-                          <td></td>
-                        </tr>
-                        <tr height="50" bgcolor="#F8F8FF">
-                          <td>HW4</td>
-                          <td>10/30</td>
-                          <td>11/12</td>
-                          <td></td>
-                        </tr>
-                        <tr height="50">
-                          <td>HW5</td>
-                          <td>11/13</td>
-                          <td>12/03</td>
-                          <td></td>
-                        </tr>
-                        <tr height="50" bgcolor="#F8F8FF">
-                          <td><strong>Final exam</strong></td>
-                          <td></td>
-                          <td>12/10&ndash;12/19 (TBD)</td>
-                          <td>30%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <p id="participation">
-                    <subheading>Participation</subheading>
-                  </p>
-                  <p>
-                    <strong>Participation</strong>: You can demonstrate participation in the course in many different
-                    ways:
-                  </p>
-                  <ul>
-                    <li>regular attendance of lectures</li>
-                    <li>attending sections and office hours</li>
-                    <li>asking questions on the Ed forum</li>
-                  </ul>
-                  <p>
-                    At the end of the term, you will submit a paragraph on how you participated in the course.
-                    Regularly attending lectures will suffice for a full participation grade.
-                    If you have another responsibility that prevents you from attending all the lectures, please make a
-                    private post on Ed at the beginning of the semester,
-                    and we will expect increased engagement through sections and Ed.
-                  </p>
-
-                  <p id="homework">
-                    <subheading>Homework</subheading>
-                  </p>
-                  <p>
-                    <strong>Homework materials</strong>: Homework assignments can be downloaded from Canvas.
-                    There are five homeworks, released every two weeks;
-                    You will have an additional week for HW3 to help prepare for the midterm and an additional week for HW5 since it is a more open-ended assignment.
-                    Each homework contains a math portion and a programming portion.
-                  </p>
-                  <ol>
-                    <li>
-                      For the math portion, you must submit a single PDF.
-                      You may choose to neatly handwrite your work or typeset it using a markup language such as LaTeX
-                      or Typst.
-                      See <a href="https://www.overleaf.com/learn">overleaf.com/learn</a> or <a
-                        href="https://typst.app/docs/tutorial/">typst.app/docs/tutorial</a> for the respective tutorials.
-                    </li>
-                    <li>
-                      For the programming portion, you will submit a zip archive of your codebase in the same file
-                      structure as the downloaded assignment.
-                      This includes your <code>README.md</code> file with any written responses.
-                      See <a href="https://www.markdownguide.org/getting-started/">markdownguide.org/getting-started</a>
-                      for a guide to Markdown formatting.
-                      You do not need to submit a PDF for this portion.
-                      If you typeset the math portion,
-                      you must include the source code in your zip archive for verification purposes.
-                    </li>
-                  </ol>
-                  <p>
-                    <strong>Compute requirements</strong>: The programming assignments are designed to be runnable on a
-                    personal laptop.
-                    We will also provide access to cloud CPUs through HUIT.
-                    Further information and setup instructions will be posted on Ed.
-                  </p>
-                  <p>
-                    <strong>Homework submission</strong>: Homeworks will be submitted through <a
-                      href="https://www.gradescope.com/courses/1333400">Gradescope</a>.
-                    Pages must be correctly assigned to questions in order to be graded.
-                  </p>
-                  <p>
-                    <strong>Late homeworks</strong>: Each student will have <strong>96 cumulative hours of late
-                      time</strong> (as measured on Gradescope).
-                    Up to <strong>48 hours</strong> may be used on any one assignment.
-                    Any assignment that is turned in beyond this limit will receive zero credit.
-                  </p>
-                  <p>
-                    <strong>Regrade requests</strong>: All regrade requests must be submitted on Gradescope within seven
-                    days after the grades for the homework in question are released.
-                    This ensures that we can address concerns in a timely and fair manner.
-                    Grades will only be changed in the case of a clear mis-application of the rubric.
-                  </p>
-                  <p>
-                    <strong>Homework grading</strong>: HW0 is graded on completion (effort shown, not correctness).
-                    For the remaining homeworks 1&ndash;5, each question is worth some indicated number of points,
-                    and your final homework score will be a weighted average across all homework questions with respect
-                    to these points.
-                    In order to pass the course, you must attempt and submit all homeworks, even for zero credit.
-                  </p>
-                  <p>
-                    <strong>Collaboration</strong>: Collaboration is encouraged under the restriction that you fully own
-                    your submissions and cite any help you received.
-                    This means that when you submit a homework, you affirm that:
-                  </p>
-                  <ul>
-                    <li>The entirety of your submission was written by you.
-                      Including output from a peer or an AI tool into your submission is strictly prohibited.</li>
-                    <li>Your submission honestly represents your own understanding of the material.
-                      If a teaching staff member asks you about any part of your submission and finds that it is not
-                      your own work,
-                      it will be treated as academic misconduct.</li>
-                    <li>You have not shared, and will not share, any part of your submission as-is with a classmate or
-                      outside of the class.
-                      For example, you may not look at a peer's submission or post your solution publicly on Ed.
-                      (Discussing your thought process or asking questions is welcome and encouraged.)
-                    </li>
-                  </ul>
-                  <p>
-                    In each of your answers, you must list all your collaborators (human or AI), as well as any
-                    materials that you consulted (except those on the course website).
-                    To support your recall, we recommend you wait a day between receiving help and writing up your own
-                    answer.
-                  </p>
-
-                  <p id="exams">
-                    <subheading>Exams</subheading>
-                  </p>
-                  <p>
-                    <strong>Midterm</strong>: There will be an in-class midterm on Monday 26 October that covers
-                    material up to and including the lecture on Wednesday 21 October.
-                    No section will be held that week.
-                  </p>
-                  <p>
-                    <strong>Final exam</strong>: The final exam is cumulative and may test knowledge from any material
-                    covered in lecture.
-                    It will take place between 10&ndash;19 December.
-                    The exact date and time will be scheduled by the FAS Registrar and announced through Ed.
-                    Please do not make travel plans that conflict with the exam period until the exam date is announced.
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="diversity-and-inclusion">
-                  <p align="center">
-                    <heading>Diversity and Inclusion</heading>
-                  </p>
-                  <p>
-                    Many academic disciplines have historically been dominated by one cross-section of society.
-                    However, the study of and participation in STEM disciplines is a joy that the instructors hope
-                    everyone can pursue, regardless of their background and identity.
-                    We encourage students to both be mindful of these issues, and, in good faith, try to take steps to
-                    fix them.
-                    You are the next generation!
-                  </p>
-                  <p>
-                    We are committed to <a href="https://ccl.harvard.edu/about/community-values">Harvard's Community
-                    Values</a>.
-                    You should expect to be treated by your classmates and the course staff with respect.
-                    You belong here, and we are here to help you learn and enjoy this course.
-                    If any incident occurs that challenges this commitment to a supportive and inclusive environment,
-                    please let the course staff know so that the issue can be addressed.
-                  </p>
-                  <p>
-                    We encourage you to familiarize yourself with Harvard's <a href="https://csndr.harvard.edu/university-NDAB-policies">Non-Discrimination and Anti-Bullying (NDAB) Policies</a> and <a href="https://csndr.harvard.edu/university-title-ix-policies">Title IX policies</a>.
-                    In particular, all course staff are Responsible Employees and are obligated to report possible cases of sexual misconduct to an FAS Title IX Resource Coordinator.
-                  </p>
-                  <p>
-                    We encourage you to take advantage of Harvard's support resources, including the following:
-                  </p>
-                  <ul>
-                    <li>
-                      <a href="https://academicresourcecenter.harvard.edu/">Academic Resource Center</a>
-                    </li>
-                    <li>
-                      <a href="https://careerservices.fas.harvard.edu/">Mignone Center for Career Success</a>
-                    </li>
-                    <li>
-                      <a href="https://camhs.huhs.harvard.edu/">Counseling and Mental Health Resources</a>
-                    </li>
-                  </ul>
-                  <p>Harvard University values inclusive excellence and providing equal educational opportunities for all students. Our goal is to remove barriers for disabled students related to inaccessible elements of instruction or design in this course. If reasonable accommodations are necessary to provide access, please contact the <a href="https://dao.fas.harvard.edu/">Disability Access Office (DAO)</a>. Accommodations do not alter fundamental requirements of the course and are not retroactive. Students should request accommodations as early as possible, since they may take time to implement. Students should notify DAO at any time during the semester if adjustments to their communicated accommodation plan are needed. If you are registered for testing accommodations, please schedule your midterm exam through the <a href="https://registrar.fas.harvard.edu/fas-testing-center-pilot-student">FAS Testing Center Pilot</a>.</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="honor-code-and-ai-policy">
-                  <p align="center">
-                    <heading>Honor code and AI policy</heading>
-                  </p>
-                  <p>
-                    You are held to the <a href="https://honor.fas.harvard.edu/honor-code">Harvard College Honor
-                      Code</a>.
-                    See the section above on collaboration.
-                    To further elaborate:
-                  </p>
-                  <ul>
-                    <li>Do not use forums like Course Hero, Chegg, etc.</li>
-                    <li>Do not directly ask or search for answers, either from a peer, on the Internet, or from an AI
-                      tool.</li>
-                    <li>Properly cite any outside materials you use for your homeworks.
-                      If you are unclear about whether some online material can be used, please ask the course staff
-                      first.</li>
-                    <li>Do not share of your solutions within or outside class at any time.</li>
-                    <li>The same principles apply to generative AI tools as human collaborators:
-                      you can use them for assistance, and if you do, you should cite them, but you may not directly ask
-                      them for the answer.
-                    </li>
-                  </ul>
-                  <p>
-                    The above is not an exhaustive list, and in general, common sense rules about academic integrity
-                    apply.
-                    If something is in doubt, please ask us for permission before you do it.
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="course-materials">
-                  <p align="center">
-                    <heading>Course materials</heading>
-                  </p>
-                  <p>
-                    <strong>Lecture slides</strong>: Slides will be posted before each lecture,
-                    and annotated slides (with all notes taken on them by the instructor during lecture) will be posted
-                    after each lecture.
-                  </p>
-                  <p>
-                    <strong>Lecture recordings</strong>: Individual lecture recordings will be made available upon request through <a href="https://docs.google.com/forms/d/e/1FAIpQLScuw722_LxZfrng-KaOpnn9jd-Gxngpcs0iBosfT9kClDfdlw/viewform?usp=publish-editor">this Google Form</a>.
-                    Access will be unconditionally granted one day after the request.
-                    It is possible that some lectures may not be recorded, in which case we will not be able to do a
-                    make-up lecture.
-                    We encourage you to attend lectures in person and participate in class discussion.
-                  </p>
-                  <p>
-                    <strong>Section materials</strong>: Section materials and solutions will be posted by TFs on the
-                    course materials spreadsheet.
-                  </p>
-                  <p>
-                    <strong>Textbooks</strong>: There are many high-quality open resources available that intersect with
-                    our course material.
-                    This reading is <em>strictly supplementary</em>:
-                    course assessments will be based solely on material covered in lectures and homeworks.
-                  </p>
-                  <ul>
-                    <li><strong>rlbook</strong>: <a href="https://rlbook.adzc.ai/">An Introduction to Reinforcement
-                        Learning</a> by Alex Cai.
-                      This is a draft textbook for the course that should closely follow the lecture content, notation,
-                      and structure, with some additional material and examples.
-                      Feedback is welcome and appreciated via the Ed forum.</li>
-                    <li><strong>S&amp;B</strong>: <a
-                        href="http://incompleteideas.net/book/the-book-2nd.html">Reinforcement
-                        Learning: An Introduction</a> by Richard Sutton and Andrew Barto.
-                      This is the classic text in reinforcement learning.</li>
-                    <li><strong>ABJKS</strong>: <a href="https://rltheorybook.github.io/">Reinforcement Learning: Theory
-                        and Algorithms</a> by Alekh Agarwal, Kiant&eacute; Brantley, Nan Jiang, Sham Kakade, and Wen
-                      Sun.
-                      This is an advanced RL theory book that is mostly out of the scope of this class.
-                      Feedback is encouraged and should be sent to bookrltheory [at] gmail [dot] com.</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle" id="schedule">
-                  <p align="center">
-                    <heading>Schedule</heading>
-                  </p>
-                  <iframe class="embed"
-                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vROR0-rRPZqnfuGZc6VykJ0jCVRxnOuJFpZGIf0wnAQ7Onb0a7Zn1W6gkWBIonBlXX0fu0n3jJ1KtSd/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
-                    height="1900" frameborder="0" scrolling="no" title="CS 1840 class meeting schedule"
-                    loading="lazy"></iframe>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+      <h3 id="exams">Exams</h3>
+      <p>
+        <strong>Midterm</strong>: There will be an in-class midterm on Monday 26 October that covers
+        material up to and including the lecture on Wednesday 21 October.
+        No section will be held that week.
+      </p>
+      <p>
+        <strong>Final exam</strong>: The final exam is cumulative and may test knowledge from any material
+        covered in lecture.
+        It will take place between 10&ndash;19 December.
+        The exact date and time will be scheduled by the FAS Registrar and announced through Ed.
+        Please do not make travel plans that conflict with the exam period until the exam date is announced.
+      </p>
+    </section>
+    <section id="diversity-and-inclusion">
+      <h2>Diversity and Inclusion</h2>
+      <p>
+        Many academic disciplines have historically been dominated by one cross-section of society.
+        However, the study of and participation in STEM disciplines is a joy that the instructors hope
+        everyone can pursue, regardless of their background and identity.
+        We encourage students to both be mindful of these issues, and, in good faith, try to take steps to
+        fix them.
+        You are the next generation!
+      </p>
+      <p>
+        We are committed to <a href="https://ccl.harvard.edu/about/community-values">Harvard's Community
+        Values</a>.
+        You should expect to be treated by your classmates and the course staff with respect.
+        You belong here, and we are here to help you learn and enjoy this course.
+        If any incident occurs that challenges this commitment to a supportive and inclusive environment,
+        please let the course staff know so that the issue can be addressed.
+      </p>
+      <p>
+        We encourage you to familiarize yourself with Harvard's <a href="https://csndr.harvard.edu/university-NDAB-policies">Non-Discrimination and Anti-Bullying (NDAB) Policies</a> and <a href="https://csndr.harvard.edu/university-title-ix-policies">Title IX policies</a>.
+        In particular, all course staff are Responsible Employees and are obligated to report possible cases of sexual misconduct to an FAS Title IX Resource Coordinator.
+      </p>
+      <p>
+        We encourage you to take advantage of Harvard's support resources, including the following:
+      </p>
+      <ul>
+        <li>
+          <a href="https://academicresourcecenter.harvard.edu/">Academic Resource Center</a>
+        </li>
+        <li>
+          <a href="https://careerservices.fas.harvard.edu/">Mignone Center for Career Success</a>
+        </li>
+        <li>
+          <a href="https://camhs.huhs.harvard.edu/">Counseling and Mental Health Resources</a>
+        </li>
+      </ul>
+      <p>Harvard University values inclusive excellence and providing equal educational opportunities for all students. Our goal is to remove barriers for disabled students related to inaccessible elements of instruction or design in this course. If reasonable accommodations are necessary to provide access, please contact the <a href="https://dao.fas.harvard.edu/">Disability Access Office (DAO)</a>. Accommodations do not alter fundamental requirements of the course and are not retroactive. Students should request accommodations as early as possible, since they may take time to implement. Students should notify DAO at any time during the semester if adjustments to their communicated accommodation plan are needed. If you are registered for testing accommodations, please schedule your midterm exam through the <a href="https://registrar.fas.harvard.edu/fas-testing-center-pilot-student">FAS Testing Center Pilot</a>.</p>
+    </section>
+    <section id="honor-code-and-ai-policy">
+      <h2>Honor code and AI policy</h2>
+      <p>
+        You are held to the <a href="https://honor.fas.harvard.edu/honor-code">Harvard College Honor
+          Code</a>.
+        See the section above on collaboration.
+        To further elaborate:
+      </p>
+      <ul>
+        <li>Do not use forums like Course Hero, Chegg, etc.</li>
+        <li>Do not directly ask or search for answers, either from a peer, on the Internet, or from an AI
+          tool.</li>
+        <li>Properly cite any outside materials you use for your homeworks.
+          If you are unclear about whether some online material can be used, please ask the course staff
+          first.</li>
+        <li>Do not share of your solutions within or outside class at any time.</li>
+        <li>The same principles apply to generative AI tools as human collaborators:
+          you can use them for assistance, and if you do, you should cite them, but you may not directly ask
+          them for the answer.
+        </li>
+      </ul>
+      <p>
+        The above is not an exhaustive list, and in general, common sense rules about academic integrity
+        apply.
+        If something is in doubt, please ask us for permission before you do it.
+      </p>
+    </section>
+    <section id="course-materials">
+      <h2>Course materials</h2>
+      <p>
+        <strong>Lecture slides</strong>: Slides will be posted before each lecture,
+        and annotated slides (with all notes taken on them by the instructor during lecture) will be posted
+        after each lecture.
+      </p>
+      <p>
+        <strong>Lecture recordings</strong>: Individual lecture recordings will be made available upon request through <a href="https://docs.google.com/forms/d/e/1FAIpQLScuw722_LxZfrng-KaOpnn9jd-Gxngpcs0iBosfT9kClDfdlw/viewform?usp=publish-editor">this Google Form</a>.
+        Access will be unconditionally granted one day after the request.
+        It is possible that some lectures may not be recorded, in which case we will not be able to do a
+        make-up lecture.
+        We encourage you to attend lectures in person and participate in class discussion.
+      </p>
+      <p>
+        <strong>Section materials</strong>: Section materials and solutions will be posted by TFs on the
+        course materials spreadsheet.
+      </p>
+      <p>
+        <strong>Textbooks</strong>: There are many high-quality open resources available that intersect with
+        our course material.
+        This reading is <em>strictly supplementary</em>:
+        course assessments will be based solely on material covered in lectures and homeworks.
+      </p>
+      <ul>
+        <li><strong>rlbook</strong>: <a href="https://rlbook.adzc.ai/">An Introduction to Reinforcement
+            Learning</a> by Alex Cai.
+          This is a draft textbook for the course that should closely follow the lecture content, notation,
+          and structure, with some additional material and examples.
+          Feedback is welcome and appreciated via the Ed forum.</li>
+        <li><strong>S&amp;B</strong>: <a
+            href="http://incompleteideas.net/book/the-book-2nd.html">Reinforcement
+            Learning: An Introduction</a> by Richard Sutton and Andrew Barto.
+          This is the classic text in reinforcement learning.</li>
+        <li><strong>ABJKS</strong>: <a href="https://rltheorybook.github.io/">Reinforcement Learning: Theory
+            and Algorithms</a> by Alekh Agarwal, Kiant&eacute; Brantley, Nan Jiang, Sham Kakade, and Wen
+          Sun.
+          This is an advanced RL theory book that is mostly out of the scope of this class.
+          Feedback is encouraged and should be sent to bookrltheory [at] gmail [dot] com.</li>
+      </ul>
+    </section>
+    <section id="schedule">
+      <h2>Schedule</h2>
+      <iframe class="embed"
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vROR0-rRPZqnfuGZc6VykJ0jCVRxnOuJFpZGIf0wnAQ7Onb0a7Zn1W6gkWBIonBlXX0fu0n3jJ1KtSd/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+        height="1900" title="CS 1840 class meeting schedule" loading="lazy"></iframe>
+    </section>
+  </main>
 </body>
 
 </html>

@@ -11,81 +11,69 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
 <style>
   a { color: #1772d0; text-decoration: none }
-  a:focus, a:hover { color: #f09228; text-decoration: none }
-  body, td, th, tr, p, a { font-family: 'Lato', Verdana, Helvetica, sans-serif; font-size: 14px }
-  name { font-family: 'Lato', Verdana, Helvetica, sans-serif; font-size: 32px }
-  heading { font-family: 'Lato', Verdana, Helvetica, sans-serif; font-size: 22px }
+  /* Hover/focus color alone is not a sufficient indicator, so underline too. */
+  a:focus, a:hover { color: #f09228; text-decoration: underline }
+  :focus-visible { outline: 2px solid #1772d0; outline-offset: 2px }
 
-  body { background: #ffffff; color: #000000; margin: 0 }
-  table.outer { width: 800px; max-width: 100% }
-  table.years { border-collapse: collapse; width: 100% }
-  table.years td { padding: 9px 12px 9px 0; vertical-align: top }
-  td.yr { width: 70px; font-weight: 700; white-space: nowrap }
-  .note { color: #444444 }
+  body {
+    font-family: 'Lato', Verdana, Helvetica, sans-serif;
+    font-size: 14px;
+    background: #ffffff;
+    color: #000000;
+    margin: 0;
+  }
+
+  /* h1/h2 replace the old custom <name>/<heading> elements, so they are styled
+     to match rather than to browser defaults. */
+  h1, h2 { font-weight: 400; margin: 0 0 1em; text-align: center }
+  h1 { font-size: 32px }
+  h2 { font-size: 22px }
+
+  main { width: 800px; max-width: 100%; margin: 0 auto }
+  main > section { padding: 20px }
+
+  /* Year/offering pairs: a description list rendered as two columns. */
+  dl.years { display: grid; grid-template-columns: 70px 1fr; margin: 0 }
+  dl.years dt { font-weight: 700; white-space: nowrap }
+  dl.years dt, dl.years dd { padding: 9px 12px 9px 0; margin: 0 }
+  dl.years dt:nth-of-type(odd), dl.years dt:nth-of-type(odd) + dd { background: #f8f8ff }
+
+  p.center { text-align: center }
+  .note { color: #444444; margin-top: 1.4em }
 </style>
 </head>
 
 <body>
-  <table class="outer" border="0" align="center" cellspacing="0" cellpadding="0">
-    <tbody>
-      <tr>
-        <td>
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle">
-                  <p align="center">
-                    <name>CS 1840: Introduction to Reinforcement Learning</name>
-                  </p>
-                  <hr>
-                  <p align="center">Harvard University</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  <main>
+    <section>
+      <h1>CS 1840: Introduction to Reinforcement Learning</h1>
+      <hr>
+      <p class="center">Harvard University</p>
+    </section>
 
-          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-            <tbody>
-              <tr>
-                <td width="100%" valign="middle">
-                  <p align="center">
-                    <heading>Course offerings</heading>
-                  </p>
+    <section>
+      <h2>Course offerings</h2>
 
-                  <table class="years">
-                    <tbody>
-                      <tr height="40" bgcolor="#F8F8FF">
-                        <td class="yr"><a href="2026/">2026</a></td>
-                        <td><a href="2026/">Fall 2026</a> &mdash; Kianté Brantley. Current offering.</td>
-                      </tr>
-                      <tr height="40">
-                        <td class="yr"><a href="https://lucasjanson.fas.harvard.edu/courses/CS_Stat_184_0.html">2024</a></td>
-                        <td><a href="https://lucasjanson.fas.harvard.edu/courses/CS_Stat_184_0.html">Fall 2024</a>
-                          &mdash; Lucas Janson. Offered as CS 1840/Stat 184.</td>
-                      </tr>
-                      <tr height="40" bgcolor="#F8F8FF">
-                        <td class="yr"><a href="https://shamulent.github.io/CS_Stat184_Fall23.html">2023</a></td>
-                        <td><a href="https://shamulent.github.io/CS_Stat184_Fall23.html">Fall 2023</a>
-                          &mdash; Lucas Janson and Sham Kakade. Offered as CS/Stat 184.</td>
-                      </tr>
-                      <tr height="40">
-                        <td class="yr"><a href="https://shamulent.github.io/CS_Stat184_Fall22.html">2022</a></td>
-                        <td><a href="https://shamulent.github.io/CS_Stat184_Fall22.html">Fall 2022</a>
-                          &mdash; Lucas Janson and Sham Kakade. Offered as CS/Stat 184.</td>
-                      </tr>
-                    </tbody>
-                  </table>
+      <dl class="years">
+        <dt>2026</dt>
+        <dd><a href="2026/">Fall 2026</a> &mdash; Kianté Brantley. Current offering.</dd>
 
-                  <p class="note"><br>Pages for previous years are hosted by their original instructors. Their
-                    policies, staff and schedules applied to that year only.</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <dt>2024</dt>
+        <dd><a href="https://lucasjanson.fas.harvard.edu/courses/CS_Stat_184_0.html">Fall 2024</a>
+          &mdash; Lucas Janson. Offered as CS 1840/Stat 184.</dd>
 
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <dt>2023</dt>
+        <dd><a href="https://shamulent.github.io/CS_Stat184_Fall23.html">Fall 2023</a>
+          &mdash; Lucas Janson and Sham Kakade. Offered as CS/Stat 184.</dd>
+
+        <dt>2022</dt>
+        <dd><a href="https://shamulent.github.io/CS_Stat184_Fall22.html">Fall 2022</a>
+          &mdash; Lucas Janson and Sham Kakade. Offered as CS/Stat 184.</dd>
+      </dl>
+
+      <p class="note">Pages for previous years are hosted by their original instructors. Their
+        policies, staff and schedules applied to that year only.</p>
+    </section>
+  </main>
 </body>
 </html>
